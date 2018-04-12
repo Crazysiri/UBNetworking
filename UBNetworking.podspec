@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "UBNetworking"
-  s.version      = "1.0.0"
+  s.version      = "1.0.1"
   s.summary      = "封装了 网络请求 af3.0"
 
   # This description is used to generate tags and improve search results.
@@ -65,7 +65,7 @@ Pod::Spec.new do |s|
   #
 
   # s.platform     = :ios
-  s.platform     = :ios, "9.0"
+  s.platform     = :ios, "7.0"
 
   #  When using multiple platforms
   # s.ios.deployment_target = "5.0"
