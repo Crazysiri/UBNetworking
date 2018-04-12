@@ -10,10 +10,7 @@
 #import "XDJBaseRequestDataModel.h"
 #import "XDJHttpClient.h"
 #import "NSObject+NetWorkingAutoCancel.h"
-
-//#import "XDJNetErrorHandler.h"
 #import "XDJRequestGenerator.h"
-//#import "XDJRequestCommonNeeds.h"
 @interface XDJDataEngine ()
 
 @property (nonatomic, strong) NSNumber *requestID;
@@ -25,9 +22,12 @@
 }
 
 #pragma mark - life cycle
-+ (void)initialize {
-//    [[XDJHttpClient sharedInstance] registerErrorHandlerClass:[XDJNetErrorHandler class]];
-//    [[XDJRequestGenerator shared] setNeeds:[[XDJRequestCommonNeeds alloc]init]];
+
+//必须配置的方法！！！aClass 是 XDJBaseRequestDataModel 子类
++ (void)initializeWithErrorHandlerClass:(Class)aClass commonNeeds:(id<XDJRequestCommonNeedsDelegate>)needs {
+        [[XDJHttpClient sharedInstance] registerErrorHandlerClass:aClass];
+        [[XDJRequestGenerator shared] setNeeds:needs];
+
 }
 
 - (void)dealloc{

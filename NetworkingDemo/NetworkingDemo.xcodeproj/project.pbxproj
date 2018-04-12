@@ -255,11 +255,11 @@
 		DA7087E7207F4D2B00DE04A8 /* Catergory */ = {
 			isa = PBXGroup;
 			children = (
+				DA7087EC207F4D2B00DE04A8 /* NSString+UtilNetworking.h */,
 				DA7087E8207F4D2B00DE04A8 /* NSString+UtilNetworking.m */,
 				DA7087E9207F4D2B00DE04A8 /* XDJNetworkingAutoCancelRequests.h */,
-				DA7087EA207F4D2B00DE04A8 /* NSObject+NetWorkingAutoCancel.h */,
 				DA7087EB207F4D2B00DE04A8 /* XDJNetworkingAutoCancelRequests.m */,
-				DA7087EC207F4D2B00DE04A8 /* NSString+UtilNetworking.h */,
+				DA7087EA207F4D2B00DE04A8 /* NSObject+NetWorkingAutoCancel.h */,
 				DA7087ED207F4D2B00DE04A8 /* NSObject+NetWorkingAutoCancel.m */,
 			);
 			path = Catergory;
