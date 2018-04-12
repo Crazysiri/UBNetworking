@@ -2,8 +2,8 @@
 //  XDJNetErrorHandler.h
 //  networking
 //
-//  Created by qiuyoubo on 2017/12/20.
-//  Copyright © 2017年 qiuyoubo. All rights reserved.
+//  Created by James on 2017/12/20.
+//  Copyright © 2017年 James. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

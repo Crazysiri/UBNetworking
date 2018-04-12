@@ -2,12 +2,14 @@
 //  AppDelegate.m
 //  NetworkingDemo
 //
-//  Created by qiuyoubo on 2018/4/12.
-//  Copyright © 2018年 qiuyoubo. All rights reserved.
+//  Created by James on 2018/4/12.
+//  Copyright © 2018年 James. All rights reserved.
 //
 
 #import "AppDelegate.h"
-
+#import "UBNetworking.h"
+#import "NetErrorHandler.h"
+#import "RequestCommonNeeds.h"
 @interface AppDelegate ()
 
 @end
@@ -16,7 +18,18 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+    [XDJDataEngine initializeWithErrorHandlerClass:[NetErrorHandler class] commonNeeds:[[RequestCommonNeeds alloc]init]];
     // Override point for customization after application launch.
+    
+    //control 参数的意思，如果object释放，那么立即结束请求（当然此处只是例子，AppDelegate不会释放，一般设置成viewController）
+    NSObject *object = self;
+   XDJDataEngine *engine =  [XDJDataEngine control:object url:@"http://baidu.com" param:nil requestType:XDJRequestTypeGet progressBlock:nil complete:^(id responseObject, NSError *error) {
+        
+    }];
+    engine.BeforeResumeBlock = ^(NSMutableURLRequest *request) {
+      //这里在请求之前可以设置一下request
+    };
     return YES;
 }
 

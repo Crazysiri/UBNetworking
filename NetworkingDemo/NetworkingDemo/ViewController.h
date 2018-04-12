@@ -2,8 +2,8 @@
 //  ViewController.h
 //  NetworkingDemo
 //
-//  Created by qiuyoubo on 2018/4/12.
-//  Copyright © 2018年 qiuyoubo. All rights reserved.
+//  Created by James on 2018/4/12.
+//  Copyright © 2018年 James. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

@@ -39,6 +39,8 @@
 		DA7087F5207F4D2C00DE04A8 /* NSString+UtilNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = DA7087E8207F4D2B00DE04A8 /* NSString+UtilNetworking.m */; };
 		DA7087F6207F4D2C00DE04A8 /* XDJNetworkingAutoCancelRequests.m in Sources */ = {isa = PBXBuildFile; fileRef = DA7087EB207F4D2B00DE04A8 /* XDJNetworkingAutoCancelRequests.m */; };
 		DA7087F7207F4D2C00DE04A8 /* NSObject+NetWorkingAutoCancel.m in Sources */ = {isa = PBXBuildFile; fileRef = DA7087ED207F4D2B00DE04A8 /* NSObject+NetWorkingAutoCancel.m */; };
+		DA708805207F6D1900DE04A8 /* RequestCommonNeeds.m in Sources */ = {isa = PBXBuildFile; fileRef = DA708801207F6D1900DE04A8 /* RequestCommonNeeds.m */; };
+		DA708807207F6D1900DE04A8 /* NetErrorHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = DA708803207F6D1900DE04A8 /* NetErrorHandler.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -107,6 +109,12 @@
 		DA7087ED207F4D2B00DE04A8 /* NSObject+NetWorkingAutoCancel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+NetWorkingAutoCancel.m"; sourceTree = "<group>"; };
 		DA7087EE207F4D2B00DE04A8 /* XDJBaseRequestDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XDJBaseRequestDataModel.h; sourceTree = "<group>"; };
 		DA7087F8207F4DAF00DE04A8 /* UBNetWorkingDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UBNetWorkingDefines.h; sourceTree = "<group>"; };
+		DA7087FC207F6BA200DE04A8 /* UBNetworking.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UBNetworking.h; sourceTree = "<group>"; };
+		DA7087FF207F6D1900DE04A8 /* NetErrorHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetErrorHandler.h; sourceTree = "<group>"; };
+		DA708800207F6D1900DE04A8 /* RequestDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestDefines.h; sourceTree = "<group>"; };
+		DA708801207F6D1900DE04A8 /* RequestCommonNeeds.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestCommonNeeds.m; sourceTree = "<group>"; };
+		DA708803207F6D1900DE04A8 /* NetErrorHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetErrorHandler.m; sourceTree = "<group>"; };
+		DA708804207F6D1900DE04A8 /* RequestCommonNeeds.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestCommonNeeds.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,6 +153,7 @@
 				DA70878C207F4CFA00DE04A8 /* AppDelegate.m */,
 				DA70878E207F4CFA00DE04A8 /* ViewController.h */,
 				DA70878F207F4CFA00DE04A8 /* ViewController.m */,
+				DA7087FD207F6D1900DE04A8 /* networkingSettings */,
 				DA708791207F4CFA00DE04A8 /* Main.storyboard */,
 				DA708794207F4CFB00DE04A8 /* Assets.xcassets */,
 				DA708796207F4CFB00DE04A8 /* LaunchScreen.storyboard */,
@@ -224,6 +233,7 @@
 		DA7087D9207F4D2B00DE04A8 /* UBNetworking */ = {
 			isa = PBXGroup;
 			children = (
+				DA7087FC207F6BA200DE04A8 /* UBNetworking.h */,
 				DA7087F8207F4DAF00DE04A8 /* UBNetWorkingDefines.h */,
 				DA7087E3207F4D2B00DE04A8 /* XDJDataEngine.h */,
 				DA7087DA207F4D2B00DE04A8 /* XDJDataEngine.m */,
@@ -263,6 +273,18 @@
 				DA7087ED207F4D2B00DE04A8 /* NSObject+NetWorkingAutoCancel.m */,
 			);
 			path = Catergory;
+			sourceTree = "<group>";
+		};
+		DA7087FD207F6D1900DE04A8 /* networkingSettings */ = {
+			isa = PBXGroup;
+			children = (
+				DA708800207F6D1900DE04A8 /* RequestDefines.h */,
+				DA7087FF207F6D1900DE04A8 /* NetErrorHandler.h */,
+				DA708803207F6D1900DE04A8 /* NetErrorHandler.m */,
+				DA708801207F6D1900DE04A8 /* RequestCommonNeeds.m */,
+				DA708804207F6D1900DE04A8 /* RequestCommonNeeds.h */,
+			);
+			path = networkingSettings;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -354,8 +376,10 @@
 				DA7087D3207F4D2300DE04A8 /* AFURLResponseSerialization.m in Sources */,
 				DA70879B207F4CFB00DE04A8 /* main.m in Sources */,
 				DA7087F7207F4D2C00DE04A8 /* NSObject+NetWorkingAutoCancel.m in Sources */,
+				DA708805207F6D1900DE04A8 /* RequestCommonNeeds.m in Sources */,
 				DA7087F1207F4D2C00DE04A8 /* XDJBaseRequestDataModel.m in Sources */,
 				DA7087EF207F4D2C00DE04A8 /* XDJDataEngine.m in Sources */,
+				DA708807207F6D1900DE04A8 /* NetErrorHandler.m in Sources */,
 				DA7087D8207F4D2300DE04A8 /* AFSecurityPolicy.m in Sources */,
 				DA7087CD207F4D2300DE04A8 /* UIImageView+AFNetworking.m in Sources */,
 				DA7087D7207F4D2300DE04A8 /* AFNetworkReachabilityManager.m in Sources */,
@@ -510,7 +534,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.bblive.ios.NetworkingDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.skates.ios.NetworkingDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -527,7 +551,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.bblive.ios.NetworkingDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.skates.ios.NetworkingDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
