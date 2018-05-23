@@ -10,6 +10,7 @@
 #import "UBNetworking.h"
 #import "NetErrorHandler.h"
 #import "RequestCommonNeeds.h"
+#import "XDJDataEngine+engine.h"
 @interface AppDelegate ()
 
 @end
@@ -24,12 +25,9 @@
     
     //control 参数的意思，如果object释放，那么立即结束请求（当然此处只是例子，AppDelegate不会释放，一般设置成viewController）
     NSObject *object = self;
-   XDJDataEngine *engine =  [XDJDataEngine control:object url:@"http://baidu.com" param:nil requestType:XDJRequestTypeGet progressBlock:nil complete:^(id responseObject, NSError *error) {
+   [XDJDataEngine control:object url:@"http://baidu.com" param:nil requestType:XDJRequestTypeGet progressBlock:nil complete:^(id responseObject, NSError *error) {
         
     }];
-    engine.BeforeResumeBlock = ^(NSMutableURLRequest *request) {
-      //这里在请求之前可以设置一下request
-    };
     return YES;
 }
 

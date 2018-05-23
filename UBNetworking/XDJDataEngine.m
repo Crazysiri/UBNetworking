@@ -14,6 +14,7 @@
 @interface XDJDataEngine ()
 
 @property (nonatomic, strong) NSNumber *requestID;
+
 @end
 @implementation XDJDataEngine
 
@@ -46,10 +47,12 @@
                        url:(NSString *)url
                      param:(NSDictionary *)parameters
                requestType:(XDJRequestType)requestType
+             beforeRequest:(void(^)(NSMutableURLRequest *request))beforeRequest
              progressBlock:(XDJProgressBlock)progressBlock
                   complete:(XDJCompletionDataBlock)responseBlock {
     
     XDJDataEngine *engine = [[XDJDataEngine alloc]init];
+    
     __weak typeof(control) weakControl = control;
     XDJBaseRequestDataModel *dataModel = [XDJBaseRequestDataModel dataModelWithUrl:url param:parameters dataFilePath:nil fileData:nil dataName:nil fileName:nil mimeType:nil requestType:requestType uploadProgressBlock:progressBlock downloadProgressBlock:nil complete:^(id data, NSError *error) {
         if (responseBlock) {
@@ -58,7 +61,7 @@
         }
         [weakControl.networkingAutoCancelRequests removeEngineWithRequestID:engine.requestID];
     }];
-    [engine callRequestWithRequestModel:dataModel control:control];
+    [engine callRequestWithRequestModel:dataModel control:control beforeRequestBlock:beforeRequest];
     return engine;
 }
 
@@ -70,9 +73,11 @@
                   dataName:(NSString *)dataName
                   fileName:(NSString *)fileName
                   mimeType:(NSString *)mimeType
+             beforeRequest:(void(^)(NSMutableURLRequest *request))beforeRequest
        uploadProgressBlock:(XDJProgressBlock)uploadProgressBlock
                   complete:(XDJCompletionDataBlock)responseBlock {
     XDJDataEngine *engine = [[XDJDataEngine alloc]init];
+    
     __weak typeof(control) weakControl = control;
     XDJBaseRequestDataModel *dataModel = [XDJBaseRequestDataModel dataModelWithUrl:url param:parameters dataFilePath:nil fileData:fileData dataName:dataName fileName:fileName mimeType:mimeType requestType:XDJRequestTypePostUpload uploadProgressBlock:uploadProgressBlock downloadProgressBlock:nil  complete:^(id data, NSError *error) {
         if (responseBlock) {
@@ -81,7 +86,7 @@
         }
         [weakControl.networkingAutoCancelRequests removeEngineWithRequestID:engine.requestID];
     }];
-    [engine callRequestWithRequestModel:dataModel control:control];
+    [engine callRequestWithRequestModel:dataModel control:control beforeRequestBlock:beforeRequest];
     return engine;
 }
 
@@ -91,15 +96,16 @@
                      param:(NSDictionary *)parameters
                  imageData:(NSData *)imageData
                  imageType:(NSString *)imageType // @"gif" / @"jpg"
+             beforeRequest:(void(^)(NSMutableURLRequest *request))beforeRequest
        uploadProgressBlock:(XDJProgressBlock)uploadProgressBlock
                   complete:(XDJCompletionDataBlock)responseBlock {
-    return [self control:control url:url param:parameters fileData:imageData dataName:@"image" fileName:@"image" mimeType:[NSString stringWithFormat:@"image/%@", imageType] uploadProgressBlock:uploadProgressBlock complete:responseBlock];
+    return [self control:control url:url param:parameters fileData:imageData dataName:@"image" fileName:@"image" mimeType:[NSString stringWithFormat:@"image/%@", imageType] beforeRequest:beforeRequest uploadProgressBlock:uploadProgressBlock complete:responseBlock];
 }
 #pragma mark - event response
 #pragma mark - private methods
 
-- (void)callRequestWithRequestModel:(XDJBaseRequestDataModel *)dataModel control:(NSObject *)control{
-    self.requestID = [[XDJHttpClient sharedInstance] callRequestWithRequestModel:dataModel beforeResume:_BeforeResumeBlock];
+- (void)callRequestWithRequestModel:(XDJBaseRequestDataModel *)dataModel control:(NSObject *)control beforeRequestBlock:(void(^)(NSMutableURLRequest *request))beforeRequestBlock {
+    self.requestID = [[XDJHttpClient sharedInstance] callRequestWithRequestModel:dataModel beforeResume:beforeRequestBlock];
     [control.networkingAutoCancelRequests setEngine:self requestID:self.requestID];
 }
 #pragma mark - getters and setters

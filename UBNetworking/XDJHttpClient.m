@@ -64,6 +64,11 @@
 - (NSNumber *)callRequestWithRequestModel:(XDJBaseRequestDataModel *)requestModel beforeResume:(void(^)(NSMutableURLRequest *request))block {
     XDJRequestGenerator *generator = [XDJRequestGenerator shared];
     NSMutableURLRequest *request = [generator  requestWithDataModel:requestModel];
+    
+    if (block) {
+        block(request);
+    }
+    
     typeof(self) __weak weakSelf = self;
     AFURLSessionManager *sessionManager = self.sessionManager;
     AFJSONResponseSerializer *Serializer = sessionManager.responseSerializer;
@@ -99,10 +104,7 @@
             }];
         }
     }];
-    
-    if (block) {
-        block(request);
-    }
+
     [task resume];
 
     NSNumber *requestID = [NSNumber numberWithUnsignedInteger:task.hash];

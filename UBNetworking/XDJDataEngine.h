@@ -20,8 +20,6 @@
  */
 + (NSString *)server:(NSString *)host other:(NSString *)other;
 
-@property (strong, nonatomic) void (^BeforeResumeBlock)(NSMutableURLRequest *request); //在开始请求前可以再次设置请求（timeout等等）
-
 /**
  *  取消self持有的hash的网络请求
  */
@@ -36,6 +34,7 @@
                        url:(NSString *)url //请求的url
                      param:(NSDictionary *)parameters //参数
                requestType:(XDJRequestType)requestType //方式 get post
+             beforeRequest:(void(^)(NSMutableURLRequest *request))beforeRequest
              progressBlock:(XDJProgressBlock)progressBlock //进度progress
                   complete:(XDJCompletionDataBlock)responseBlock; //结果block
 
@@ -48,6 +47,7 @@
                   dataName:(NSString *)dataName
                   fileName:(NSString *)fileName
                   mimeType:(NSString *)mimeType
+             beforeRequest:(void(^)(NSMutableURLRequest *request))beforeRequest
           uploadProgressBlock:(XDJProgressBlock)uploadProgressBlock
                   complete:(XDJCompletionDataBlock)responseBlock;
 
@@ -58,6 +58,7 @@
                      param:(NSDictionary *)parameters
                  imageData:(NSData *)imageData
                  imageType:(NSString *)imageType // @"gif" // @"jpg"
+             beforeRequest:(void(^)(NSMutableURLRequest *request))beforeRequest
        uploadProgressBlock:(XDJProgressBlock)uploadProgressBlock
                   complete:(XDJCompletionDataBlock)responseBlock;
 @end
