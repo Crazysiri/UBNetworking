@@ -54,10 +54,10 @@
     XDJDataEngine *engine = [[XDJDataEngine alloc]init];
     
     __weak typeof(control) weakControl = control;
-    XDJBaseRequestDataModel *dataModel = [XDJBaseRequestDataModel dataModelWithUrl:url param:parameters dataFilePath:nil fileData:nil dataName:nil fileName:nil mimeType:nil requestType:requestType uploadProgressBlock:progressBlock downloadProgressBlock:nil complete:^(id data, NSError *error) {
+    XDJBaseRequestDataModel *dataModel = [XDJBaseRequestDataModel dataModelWithUrl:url param:parameters dataFilePath:nil fileData:nil dataName:nil fileName:nil mimeType:nil requestType:requestType uploadProgressBlock:progressBlock downloadProgressBlock:nil complete:^(id responseObject, NSURLResponse *response, NSError *error) {
         if (responseBlock) {
             //可以在这里做错误的UI处理，或者是在上层engine做
-            responseBlock(data,error);
+            responseBlock(responseObject,response,error);
         }
         [weakControl.networkingAutoCancelRequests removeEngineWithRequestID:engine.requestID];
     }];
@@ -79,10 +79,10 @@
     XDJDataEngine *engine = [[XDJDataEngine alloc]init];
     
     __weak typeof(control) weakControl = control;
-    XDJBaseRequestDataModel *dataModel = [XDJBaseRequestDataModel dataModelWithUrl:url param:parameters dataFilePath:nil fileData:fileData dataName:dataName fileName:fileName mimeType:mimeType requestType:XDJRequestTypePostUpload uploadProgressBlock:uploadProgressBlock downloadProgressBlock:nil  complete:^(id data, NSError *error) {
+    XDJBaseRequestDataModel *dataModel = [XDJBaseRequestDataModel dataModelWithUrl:url param:parameters dataFilePath:nil fileData:fileData dataName:dataName fileName:fileName mimeType:mimeType requestType:XDJRequestTypePostUpload uploadProgressBlock:uploadProgressBlock downloadProgressBlock:nil  complete:^(id responseObject, NSURLResponse *response, NSError *error) {
         if (responseBlock) {
             //可以在这里做错误的UI处理，或者是在上层engine做
-            responseBlock(data,error);
+            responseBlock(responseObject,response,error);
         }
         [weakControl.networkingAutoCancelRequests removeEngineWithRequestID:engine.requestID];
     }];

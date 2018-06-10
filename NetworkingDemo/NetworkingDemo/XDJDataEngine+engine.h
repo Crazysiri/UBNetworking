@@ -15,7 +15,7 @@
                      param:(NSDictionary *)parameters //参数
                requestType:(XDJRequestType)requestType //方式 get post
              progressBlock:(XDJProgressBlock)progressBlock //进度progress
-                  complete:(XDJCompletionDataBlock)responseBlock; //结果block
+                  complete:(void(^)(id responseObject, NSError *error))responseBlock; //结果block
 
 
 /// (engine)上传文件data的请求 requestType 默认为 XDJRequestTypePostUpload
@@ -27,7 +27,7 @@
                   fileName:(NSString *)fileName
                   mimeType:(NSString *)mimeType
        uploadProgressBlock:(XDJProgressBlock)uploadProgressBlock
-                  complete:(XDJCompletionDataBlock)responseBlock;
+                  complete:(void(^)(id responseObject, NSError *error))responseBlock;
 
 
 /// (engine)上传图片data的请求，imageType = @"gif" 或者 @"jpg"
@@ -37,5 +37,5 @@
                  imageData:(NSData *)imageData
                  imageType:(NSString *)imageType // @"gif" // @"jpg"
        uploadProgressBlock:(XDJProgressBlock)uploadProgressBlock
-                  complete:(XDJCompletionDataBlock)responseBlock;
+                  complete:(void(^)(id responseObject, NSError *error))responseBlock;
 @end

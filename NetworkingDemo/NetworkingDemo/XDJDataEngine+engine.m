@@ -15,8 +15,12 @@
                      param:(NSDictionary *)parameters //参数
                requestType:(XDJRequestType)requestType //方式 get post
              progressBlock:(XDJProgressBlock)progressBlock //进度progress
-                  complete:(XDJCompletionDataBlock)responseBlock {
-    return [self control:control url:url param:parameters requestType:requestType beforeRequest:nil progressBlock:progressBlock complete:responseBlock];
+                  complete:(void(^)(id responseObject, NSError *error))responseBlock {
+    return [self control:control url:url param:parameters requestType:requestType beforeRequest:nil progressBlock:progressBlock complete:^(id responseObject, NSURLResponse *response, NSError *error) {
+        if (responseBlock) {
+            responseBlock(responseObject,error);
+        }
+    }];
 } //结果block
 
 
@@ -29,8 +33,12 @@
                   fileName:(NSString *)fileName
                   mimeType:(NSString *)mimeType
        uploadProgressBlock:(XDJProgressBlock)uploadProgressBlock
-                  complete:(XDJCompletionDataBlock)responseBlock {
-    return [self control:control url:url param:parameters fileData:fileData dataName:dataName fileName:fileName mimeType:mimeType beforeRequest:nil uploadProgressBlock:uploadProgressBlock complete:responseBlock];
+                  complete:(void(^)(id responseObject, NSError *error))responseBlock {
+    return [self control:control url:url param:parameters fileData:fileData dataName:dataName fileName:fileName mimeType:mimeType beforeRequest:nil uploadProgressBlock:uploadProgressBlock complete:^(id responseObject, NSURLResponse *response, NSError *error) {
+        if (responseBlock) {
+            responseBlock(responseObject,error);
+        }
+    }];
 }
 
 
@@ -41,7 +49,11 @@
                  imageData:(NSData *)imageData
                  imageType:(NSString *)imageType // @"gif" // @"jpg"
        uploadProgressBlock:(XDJProgressBlock)uploadProgressBlock
-                  complete:(XDJCompletionDataBlock)responseBlock {
-    return [self control:control url:url param:parameters imageData:imageData imageType:imageType beforeRequest:nil uploadProgressBlock:uploadProgressBlock complete:responseBlock];
+                  complete:(void(^)(id responseObject, NSError *error))responseBlock {
+    return [self control:control url:url param:parameters imageData:imageData imageType:imageType beforeRequest:nil uploadProgressBlock:uploadProgressBlock complete:^(id responseObject, NSURLResponse *response, NSError *error) {
+        if (responseBlock) {
+            responseBlock(responseObject,error);
+        }
+    }];
 }
 @end
