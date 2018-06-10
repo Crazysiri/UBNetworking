@@ -19,7 +19,7 @@ typedef NS_ENUM (NSUInteger, XDJRequestType){
 };
 
 typedef void (^XDJProgressBlock)(NSProgress *taskProgress);
-typedef void (^XDJCompletionDataBlock)(id responseObject, NSError *error);
+typedef void (^XDJCompletionDataBlock)(id responseObject,NSURLResponse *response, NSError *error);
 typedef void (^XDJErrorAlertSelectIndexBlock)(NSUInteger buttonIndex);
 
 #endif /* UBNetWorkingDefines_h */
