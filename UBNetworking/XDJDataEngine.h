@@ -12,6 +12,8 @@
 
 @interface XDJDataEngine : NSObject
 
+@property (readonly, nonatomic) NSURLResponse *response;
+
 //必须配置的方法！！！aClass 是 XDJBaseRequestDataModel 子类
 + (void)initializeWithErrorHandlerClass:(Class)aClass commonNeeds:(id<XDJRequestCommonNeedsDelegate>)needs;
 

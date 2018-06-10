@@ -13,6 +13,8 @@
 #import "XDJRequestGenerator.h"
 @interface XDJDataEngine ()
 
+@property (strong, nonatomic) NSURLResponse *response;
+
 @property (nonatomic, strong) NSNumber *requestID;
 
 @end
@@ -54,8 +56,10 @@
     XDJDataEngine *engine = [[XDJDataEngine alloc]init];
     
     __weak typeof(control) weakControl = control;
+    __weak typeof(engine) weakEngine = engine;
     XDJBaseRequestDataModel *dataModel = [XDJBaseRequestDataModel dataModelWithUrl:url param:parameters dataFilePath:nil fileData:nil dataName:nil fileName:nil mimeType:nil requestType:requestType uploadProgressBlock:progressBlock downloadProgressBlock:nil complete:^(id responseObject, NSURLResponse *response, NSError *error) {
         if (responseBlock) {
+            weakEngine.response = response;
             //可以在这里做错误的UI处理，或者是在上层engine做
             responseBlock(responseObject,response,error);
         }
@@ -79,8 +83,11 @@
     XDJDataEngine *engine = [[XDJDataEngine alloc]init];
     
     __weak typeof(control) weakControl = control;
+    __weak typeof(engine) weakEngine = engine;
+
     XDJBaseRequestDataModel *dataModel = [XDJBaseRequestDataModel dataModelWithUrl:url param:parameters dataFilePath:nil fileData:fileData dataName:dataName fileName:fileName mimeType:mimeType requestType:XDJRequestTypePostUpload uploadProgressBlock:uploadProgressBlock downloadProgressBlock:nil  complete:^(id responseObject, NSURLResponse *response, NSError *error) {
         if (responseBlock) {
+            weakEngine.response = response;
             //可以在这里做错误的UI处理，或者是在上层engine做
             responseBlock(responseObject,response,error);
         }

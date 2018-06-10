@@ -25,8 +25,8 @@
     
     //control 参数的意思，如果object释放，那么立即结束请求（当然此处只是例子，AppDelegate不会释放，一般设置成viewController）
     NSObject *object = self;
-   [XDJDataEngine control:object url:@"http://baidu.com" param:nil requestType:XDJRequestTypeGet progressBlock:nil complete:^(id responseObject, NSError *error) {
-        
+   __block XDJDataEngine *engine = [XDJDataEngine control:object url:@"http://baidu.com" param:nil requestType:XDJRequestTypeGet progressBlock:nil complete:^(id responseObject, NSError *error) {
+       NSLog(@"response:%@", engine.response);
     }];
     return YES;
 }
