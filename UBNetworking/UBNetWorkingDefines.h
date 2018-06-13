@@ -18,6 +18,9 @@ typedef NS_ENUM (NSUInteger, XDJRequestType){
     XDJRequestTypeGETDownload             //下载文件请求，不做返回值解析
 };
 
+typedef void (^XDJDownloadProgressBlock)(NSInteger currentFileLength, NSInteger totalFileLenght);
+typedef void (^XDJDownloadCompletionBlock)(NSString *path,NSURLResponse *response, NSError *error);
+
 typedef void (^XDJProgressBlock)(NSProgress *taskProgress);
 typedef void (^XDJCompletionDataBlock)(id responseObject,NSURLResponse *response, NSError *error);
 typedef void (^XDJErrorAlertSelectIndexBlock)(NSUInteger buttonIndex);

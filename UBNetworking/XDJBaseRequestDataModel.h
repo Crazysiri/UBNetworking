@@ -28,12 +28,25 @@
 @property (nonatomic, strong) NSString *fileName;
 @property (nonatomic, strong) NSString *mimeType;
 
+@property (nonatomic, copy) XDJProgressBlock uploadProgressBlock;
+
 // download
 // download file
+/** AFNetworking断点下载（支持离线）需用到的属性 **********/
+/** 文件的总长度 */
+@property (nonatomic, assign) long long fileLength;
+/** 当前下载长度 */
+@property (nonatomic, assign) long long currentLength;
+/** 当次下载需要的长度 */
+@property (nonatomic, assign) long long expectedContentLength;
+/** 文件句柄对象 */
+@property (nonatomic, strong) NSFileHandle *fileHandle;
 
+@property (nonatomic, copy) NSString *downloadPath;
 // progressBlock
-@property (nonatomic, copy) XDJProgressBlock uploadProgressBlock;
-@property (nonatomic, copy) XDJProgressBlock downloadProgressBlock;
+@property (nonatomic, copy) XDJDownloadProgressBlock downloadProgressBlock;
+
+@property (nonatomic, copy) XDJDownloadCompletionBlock downloadResponseBlock;      //请求着陆回调
 
 
 
@@ -47,6 +60,10 @@
                                      mimeType:(NSString *)mimeType
                                   requestType:(XDJRequestType)requestType
                           uploadProgressBlock:(XDJProgressBlock)uploadProgressBlock
-                        downloadProgressBlock:(XDJProgressBlock)downloadProgressBlock
                                      complete:(XDJCompletionDataBlock)responseBlock;
+
++ (XDJBaseRequestDataModel *)downloadModelWithUrl:(NSString *)url
+                                            param:(NSDictionary *)parameters
+                                 downloadProgress:(XDJDownloadProgressBlock)downloadProgress
+                                         complete:(XDJDownloadCompletionBlock)responseBlock;
 @end

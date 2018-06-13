@@ -7,13 +7,18 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "XDJDownloadPlugin.h"
 
 @class XDJBaseRequestDataModel;
 
 @interface XDJHttpClient : NSObject
 
+@property (strong, nonatomic) XDJDownloadPlugin *downloadPlugin;
+
 + (instancetype)sharedInstance;
+
 - (void)registerErrorHandlerClass:(Class)aClass;
+
 
 /**
  *  根据dataModel发起网络请求，并根据dataModel发起回调

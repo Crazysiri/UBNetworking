@@ -7,6 +7,7 @@
 //
 
 #import "XDJBaseRequestDataModel.h"
+#import "XDJDownloadPlugin.h"
 
 @implementation XDJBaseRequestDataModel
 + (XDJBaseRequestDataModel *)dataModelWithUrl:(NSString *)url
@@ -18,7 +19,6 @@
                                      mimeType:(NSString *)mimeType
                                   requestType:(XDJRequestType)requestType
                           uploadProgressBlock:(XDJProgressBlock)uploadProgressBlock
-                        downloadProgressBlock:(XDJProgressBlock)downloadProgressBlock
                                      complete:(XDJCompletionDataBlock)responseBlock
 {
     XDJBaseRequestDataModel *dataModel = [[XDJBaseRequestDataModel alloc]init];
@@ -31,8 +31,23 @@
     dataModel.mimeType = mimeType;
     dataModel.requestType = requestType;
     dataModel.uploadProgressBlock = uploadProgressBlock;
-    dataModel.downloadProgressBlock = downloadProgressBlock;
     dataModel.responseBlock = responseBlock;
+    return dataModel;
+}
+
++ (XDJBaseRequestDataModel *)downloadModelWithUrl:(NSString *)url
+                                            param:(NSDictionary *)parameters
+                                 downloadProgress:(XDJDownloadProgressBlock)downloadProgress
+                                         complete:(XDJDownloadCompletionBlock)responseBlock {
+    XDJBaseRequestDataModel *dataModel = [[XDJBaseRequestDataModel alloc]init];
+    NSString *path = [XDJDownloadPlugin filePathForURL:url];
+    dataModel.currentLength = [XDJDownloadPlugin fileLengthForPath:path];
+    dataModel.downloadPath = path;
+    dataModel.url = url;
+    dataModel.requestType = XDJRequestTypeGETDownload;
+    dataModel.parameters = parameters;
+    dataModel.downloadProgressBlock = downloadProgress;
+    dataModel.downloadResponseBlock = responseBlock;
     return dataModel;
 }
 @end

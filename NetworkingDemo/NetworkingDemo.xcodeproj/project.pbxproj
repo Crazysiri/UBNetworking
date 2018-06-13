@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DA64A8EC20CFA728009A3D3B /* XDJDownloadPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = DA64A8EB20CFA728009A3D3B /* XDJDownloadPlugin.m */; };
 		DA70878D207F4CFA00DE04A8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DA70878C207F4CFA00DE04A8 /* AppDelegate.m */; };
 		DA708790207F4CFA00DE04A8 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA70878F207F4CFA00DE04A8 /* ViewController.m */; };
 		DA708793207F4CFA00DE04A8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA708791207F4CFA00DE04A8 /* Main.storyboard */; };
@@ -34,7 +35,6 @@
 		DA7087F0207F4D2C00DE04A8 /* XDJHttpClient.m in Sources */ = {isa = PBXBuildFile; fileRef = DA7087DB207F4D2B00DE04A8 /* XDJHttpClient.m */; };
 		DA7087F1207F4D2C00DE04A8 /* XDJBaseRequestDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = DA7087DD207F4D2B00DE04A8 /* XDJBaseRequestDataModel.m */; };
 		DA7087F2207F4D2C00DE04A8 /* XDJRequestGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = DA7087DF207F4D2B00DE04A8 /* XDJRequestGenerator.m */; };
-		DA7087F3207F4D2C00DE04A8 /* XDJHttpClientDownload.m in Sources */ = {isa = PBXBuildFile; fileRef = DA7087E2207F4D2B00DE04A8 /* XDJHttpClientDownload.m */; };
 		DA7087F4207F4D2C00DE04A8 /* XDJBaseNetErrorHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = DA7087E6207F4D2B00DE04A8 /* XDJBaseNetErrorHandler.m */; };
 		DA7087F5207F4D2C00DE04A8 /* NSString+UtilNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = DA7087E8207F4D2B00DE04A8 /* NSString+UtilNetworking.m */; };
 		DA7087F6207F4D2C00DE04A8 /* XDJNetworkingAutoCancelRequests.m in Sources */ = {isa = PBXBuildFile; fileRef = DA7087EB207F4D2B00DE04A8 /* XDJNetworkingAutoCancelRequests.m */; };
@@ -45,6 +45,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DA64A8EA20CFA728009A3D3B /* XDJDownloadPlugin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XDJDownloadPlugin.h; sourceTree = "<group>"; };
+		DA64A8EB20CFA728009A3D3B /* XDJDownloadPlugin.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XDJDownloadPlugin.m; sourceTree = "<group>"; };
 		DA708788207F4CFA00DE04A8 /* NetworkingDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NetworkingDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA70878B207F4CFA00DE04A8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		DA70878C207F4CFA00DE04A8 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -96,8 +98,6 @@
 		DA7087DD207F4D2B00DE04A8 /* XDJBaseRequestDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XDJBaseRequestDataModel.m; sourceTree = "<group>"; };
 		DA7087DE207F4D2B00DE04A8 /* XDJBaseNetErrorHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XDJBaseNetErrorHandler.h; sourceTree = "<group>"; };
 		DA7087DF207F4D2B00DE04A8 /* XDJRequestGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XDJRequestGenerator.m; sourceTree = "<group>"; };
-		DA7087E1207F4D2B00DE04A8 /* XDJHttpClientDownload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XDJHttpClientDownload.h; sourceTree = "<group>"; };
-		DA7087E2207F4D2B00DE04A8 /* XDJHttpClientDownload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XDJHttpClientDownload.m; sourceTree = "<group>"; };
 		DA7087E3207F4D2B00DE04A8 /* XDJDataEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XDJDataEngine.h; sourceTree = "<group>"; };
 		DA7087E4207F4D2B00DE04A8 /* XDJHttpClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XDJHttpClient.h; sourceTree = "<group>"; };
 		DA7087E5207F4D2B00DE04A8 /* XDJRequestGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XDJRequestGenerator.h; sourceTree = "<group>"; };
@@ -244,6 +244,8 @@
 				DA7087DA207F4D2B00DE04A8 /* XDJDataEngine.m */,
 				DA7087E4207F4D2B00DE04A8 /* XDJHttpClient.h */,
 				DA7087DB207F4D2B00DE04A8 /* XDJHttpClient.m */,
+				DA64A8EA20CFA728009A3D3B /* XDJDownloadPlugin.h */,
+				DA64A8EB20CFA728009A3D3B /* XDJDownloadPlugin.m */,
 				DA7087DC207F4D2B00DE04A8 /* XDJRequestCommonNeedsDelegate.h */,
 				DA7087EE207F4D2B00DE04A8 /* XDJBaseRequestDataModel.h */,
 				DA7087DD207F4D2B00DE04A8 /* XDJBaseRequestDataModel.m */,
@@ -251,20 +253,10 @@
 				DA7087DF207F4D2B00DE04A8 /* XDJRequestGenerator.m */,
 				DA7087DE207F4D2B00DE04A8 /* XDJBaseNetErrorHandler.h */,
 				DA7087E6207F4D2B00DE04A8 /* XDJBaseNetErrorHandler.m */,
-				DA7087E0207F4D2B00DE04A8 /* download */,
 				DA7087E7207F4D2B00DE04A8 /* Catergory */,
 			);
 			name = UBNetworking;
 			path = ../../UBNetworking;
-			sourceTree = "<group>";
-		};
-		DA7087E0207F4D2B00DE04A8 /* download */ = {
-			isa = PBXGroup;
-			children = (
-				DA7087E1207F4D2B00DE04A8 /* XDJHttpClientDownload.h */,
-				DA7087E2207F4D2B00DE04A8 /* XDJHttpClientDownload.m */,
-			);
-			path = download;
 			sourceTree = "<group>";
 		};
 		DA7087E7207F4D2B00DE04A8 /* Catergory */ = {
@@ -364,7 +356,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DA7087F3207F4D2C00DE04A8 /* XDJHttpClientDownload.m in Sources */,
 				DA7087F6207F4D2C00DE04A8 /* XDJNetworkingAutoCancelRequests.m in Sources */,
 				DA7087D5207F4D2300DE04A8 /* AFURLSessionManager.m in Sources */,
 				DA7087CA207F4D2300DE04A8 /* UIProgressView+AFNetworking.m in Sources */,
@@ -381,6 +372,7 @@
 				DA7087D3207F4D2300DE04A8 /* AFURLResponseSerialization.m in Sources */,
 				DA70879B207F4CFB00DE04A8 /* main.m in Sources */,
 				DA7087F7207F4D2C00DE04A8 /* NSObject+NetWorkingAutoCancel.m in Sources */,
+				DA64A8EC20CFA728009A3D3B /* XDJDownloadPlugin.m in Sources */,
 				DA708805207F6D1900DE04A8 /* RequestCommonNeeds.m in Sources */,
 				DA7087F1207F4D2C00DE04A8 /* XDJBaseRequestDataModel.m in Sources */,
 				DA7087EF207F4D2C00DE04A8 /* XDJDataEngine.m in Sources */,

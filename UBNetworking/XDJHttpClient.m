@@ -68,20 +68,44 @@
     if (block) {
         block(request);
     }
+    NSURLSessionTask *task = nil;
+    if (requestModel.requestType == XDJRequestTypeGETDownload) { //如果是下载，就使用下载插件来生成对应的逻辑
+        if (!self.downloadPlugin) {
+            self.downloadPlugin = [[XDJDownloadPlugin alloc]init];
+        }
+        task = [self.downloadPlugin downloadTaskWithRequest:request requestModel:requestModel];
+
+    } else {
+        task = [self taskWithRequest:request requestModel:requestModel];
+    }
+    [task resume];
+
+    NSNumber *requestID = [NSNumber numberWithUnsignedInteger:task.hash];
+    [self.dispatchTable setObject:task forKey:requestID];
+    return requestID;
+}
+
+//创建task
+- (NSURLSessionTask *)taskWithRequest:(NSMutableURLRequest *)request requestModel:(XDJBaseRequestDataModel *)requestModel {
     
-    typeof(self) __weak weakSelf = self;
+    //设置 sessionManager
     AFURLSessionManager *sessionManager = self.sessionManager;
     AFJSONResponseSerializer *Serializer = sessionManager.responseSerializer;
     NSMutableSet *set = [NSMutableSet set];
+    XDJRequestGenerator *generator = [XDJRequestGenerator shared];
     id <XDJRequestCommonNeedsDelegate> needs = [generator needs];
     for (NSString *string in [needs contentTypes]) {
         [set addObject:string];
     }
     Serializer.acceptableContentTypes = set;
     
+    
+    
+    typeof(self) __weak weakSelf = self;
+
     __weak typeof(_errorHandlerClass) weakClass = _errorHandlerClass;
 
-    __block NSURLSessionDataTask *task = [sessionManager dataTaskWithRequest:request uploadProgress:requestModel.uploadProgressBlock downloadProgress:requestModel.downloadProgressBlock completionHandler:^(NSURLResponse * _Nonnull response,id  _Nullable responseObject, NSError * _Nullable error) {
+    __block NSURLSessionDataTask *task = [self.sessionManager dataTaskWithRequest:request uploadProgress:requestModel.uploadProgressBlock downloadProgress:nil completionHandler:^(NSURLResponse * _Nonnull response,id  _Nullable responseObject, NSError * _Nullable error) {
         if (error || !responseObject || ([responseObject[@"code"] integerValue] != 200)) {
             NSLog(@"请求：%@ object:%@ error:%@",requestModel.url,responseObject,error);
         }
@@ -104,13 +128,9 @@
             }];
         }
     }];
-
-    [task resume];
-
-    NSNumber *requestID = [NSNumber numberWithUnsignedInteger:task.hash];
-    [self.dispatchTable setObject:task forKey:requestID];
-    return requestID;
+    return task;
 }
+
 
 /**
  *  取消网络请求
@@ -135,6 +155,7 @@
 
 
 
+
 - (AFURLSessionManager *)getCommonSessionManager
 {
     NSURLCache *URLCache = [[NSURLCache alloc] initWithMemoryCapacity:4 * 1024 * 1024 diskCapacity:20 * 1024 * 1024 diskPath:nil];
@@ -145,22 +166,6 @@
     
     AFURLSessionManager *sessionManager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
     return sessionManager;
-}
-
-#pragma mark - progress observer
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context{
-    //拿到进度
-    //    [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
-    
-    if ([keyPath isEqualToString:@"fractionCompleted"] && [object isKindOfClass:[NSProgress class]]) {
-        NSProgress *progress = (NSProgress *)object;
-        
-        XDJBaseRequestDataModel *model = progress.userInfo[@"model"];
-        if (model.uploadProgressBlock)
-        model.uploadProgressBlock(progress);
-    }
-    
 }
 
 #pragma mark - getters and setters

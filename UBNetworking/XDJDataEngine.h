@@ -63,4 +63,14 @@
              beforeRequest:(void(^)(NSMutableURLRequest *request))beforeRequest
        uploadProgressBlock:(XDJProgressBlock)uploadProgressBlock
                   complete:(XDJCompletionDataBlock)responseBlock;
+
+
+/// downloadget的请求
++ (XDJDataEngine *)control:(NSObject *)control //control 释放时销毁当前请求
+                       url:(NSString *)url //请求的url
+                     param:(NSDictionary *)parameters //参数
+             beforeRequest:(void(^)(NSMutableURLRequest *request))beforeRequest
+          downloadProgress:(XDJDownloadProgressBlock)downloadProgressBlock //进度progress
+                  complete:(XDJDownloadCompletionBlock)responseBlock;
+
 @end

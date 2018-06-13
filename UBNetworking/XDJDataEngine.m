@@ -57,7 +57,7 @@
     
     __weak typeof(control) weakControl = control;
     __weak typeof(engine) weakEngine = engine;
-    XDJBaseRequestDataModel *dataModel = [XDJBaseRequestDataModel dataModelWithUrl:url param:parameters dataFilePath:nil fileData:nil dataName:nil fileName:nil mimeType:nil requestType:requestType uploadProgressBlock:progressBlock downloadProgressBlock:nil complete:^(id responseObject, NSURLResponse *response, NSError *error) {
+    XDJBaseRequestDataModel *dataModel = [XDJBaseRequestDataModel dataModelWithUrl:url param:parameters dataFilePath:nil fileData:nil dataName:nil fileName:nil mimeType:nil requestType:requestType uploadProgressBlock:progressBlock complete:^(id responseObject, NSURLResponse *response, NSError *error) {
         if (responseBlock) {
             weakEngine.response = response;
             //可以在这里做错误的UI处理，或者是在上层engine做
@@ -85,7 +85,7 @@
     __weak typeof(control) weakControl = control;
     __weak typeof(engine) weakEngine = engine;
 
-    XDJBaseRequestDataModel *dataModel = [XDJBaseRequestDataModel dataModelWithUrl:url param:parameters dataFilePath:nil fileData:fileData dataName:dataName fileName:fileName mimeType:mimeType requestType:XDJRequestTypePostUpload uploadProgressBlock:uploadProgressBlock downloadProgressBlock:nil  complete:^(id responseObject, NSURLResponse *response, NSError *error) {
+    XDJBaseRequestDataModel *dataModel = [XDJBaseRequestDataModel dataModelWithUrl:url param:parameters dataFilePath:nil fileData:fileData dataName:dataName fileName:fileName mimeType:mimeType requestType:XDJRequestTypePostUpload uploadProgressBlock:uploadProgressBlock  complete:^(id responseObject, NSURLResponse *response, NSError *error) {
         if (responseBlock) {
             weakEngine.response = response;
             //可以在这里做错误的UI处理，或者是在上层engine做
@@ -108,6 +108,33 @@
                   complete:(XDJCompletionDataBlock)responseBlock {
     return [self control:control url:url param:parameters fileData:imageData dataName:@"image" fileName:@"image" mimeType:[NSString stringWithFormat:@"image/%@", imageType] beforeRequest:beforeRequest uploadProgressBlock:uploadProgressBlock complete:responseBlock];
 }
+
+/// downloadget的请求
++ (XDJDataEngine *)control:(NSObject *)control //control 释放时销毁当前请求
+                       url:(NSString *)url //请求的url
+                     param:(NSDictionary *)parameters //参数
+             beforeRequest:(void(^)(NSMutableURLRequest *request))beforeRequest
+          downloadProgress:(XDJDownloadProgressBlock)downloadProgressBlock //进度progress
+                  complete:(XDJDownloadCompletionBlock)responseBlock
+                   {
+    XDJDataEngine *engine = [[XDJDataEngine alloc]init];
+    
+    __weak typeof(control) weakControl = control;
+    __weak typeof(engine) weakEngine = engine;
+
+        XDJBaseRequestDataModel *dataModel = [XDJBaseRequestDataModel downloadModelWithUrl:url param:parameters downloadProgress:downloadProgressBlock complete:^(NSString *path, NSURLResponse *response, NSError *error) {
+                           
+        if (responseBlock) {
+            weakEngine.response = response;
+            //可以在这里做错误的UI处理，或者是在上层engine做
+            responseBlock(path,response,error);
+        }
+        [weakControl.networkingAutoCancelRequests removeEngineWithRequestID:engine.requestID];
+
+    }];
+    [engine callRequestWithRequestModel:dataModel control:control beforeRequestBlock:beforeRequest];
+    return engine;
+} //结果block
 #pragma mark - event response
 #pragma mark - private methods
 

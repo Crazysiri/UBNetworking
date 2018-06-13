@@ -10,4 +10,6 @@
 
 @interface NSString (UtilNetworking)
 + (BOOL)isEmptyString:(NSString *)string;
+
+- (NSString *)ubnetworking_MD5;
 @end

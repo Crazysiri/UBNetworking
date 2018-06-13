@@ -83,6 +83,8 @@
             }
             
         } error:&error];
+    } else if (model.requestType == XDJRequestTypeGETDownload) {
+        request = [self.httpRequestSerializer requestWithMethod:@"GET" URLString:urlString parameters:commonParams error:&error];
     }
     if (error || request == nil) {
         NSLog(@"NSMutableURLRequests生成失败：\n---------------------------\n\
