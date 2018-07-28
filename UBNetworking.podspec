@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "UBNetworking"
-  s.version      = "1.3.1"
+  s.version      = "1.3.2"
   s.summary      = "封装了 网络请求 af3.0"
 
   # This description is used to generate tags and improve search results.
@@ -26,6 +26,7 @@ Pod::Spec.new do |s|
   #   * Finally, don't worry about the indent, CocoaPods strips it!
   s.description  = <<-DESC
 	A tool for URL Request base on AFNetworking
+1.3.2:增加url的获取 用法 主要为了模块化后，主工程 控制 子工程 服务器地址
 	DESC
 
   s.homepage     = "https://github.com/Crazysiri/UBNetworking.git"

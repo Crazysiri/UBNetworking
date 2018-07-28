@@ -41,6 +41,7 @@
 		DA7087F7207F4D2C00DE04A8 /* NSObject+NetWorkingAutoCancel.m in Sources */ = {isa = PBXBuildFile; fileRef = DA7087ED207F4D2B00DE04A8 /* NSObject+NetWorkingAutoCancel.m */; };
 		DA708805207F6D1900DE04A8 /* RequestCommonNeeds.m in Sources */ = {isa = PBXBuildFile; fileRef = DA708801207F6D1900DE04A8 /* RequestCommonNeeds.m */; };
 		DA708807207F6D1900DE04A8 /* NetErrorHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = DA708803207F6D1900DE04A8 /* NetErrorHandler.m */; };
+		DA8481AD210C4CDB00EB489F /* XDJDataEngine+urlControl.m in Sources */ = {isa = PBXBuildFile; fileRef = DA8481AC210C4CDB00EB489F /* XDJDataEngine+urlControl.m */; };
 		DAF9C01120B575490014B3EB /* XDJDataEngine+engine.m in Sources */ = {isa = PBXBuildFile; fileRef = DAF9C01020B575490014B3EB /* XDJDataEngine+engine.m */; };
 /* End PBXBuildFile section */
 
@@ -116,6 +117,8 @@
 		DA708801207F6D1900DE04A8 /* RequestCommonNeeds.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestCommonNeeds.m; sourceTree = "<group>"; };
 		DA708803207F6D1900DE04A8 /* NetErrorHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetErrorHandler.m; sourceTree = "<group>"; };
 		DA708804207F6D1900DE04A8 /* RequestCommonNeeds.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestCommonNeeds.h; sourceTree = "<group>"; };
+		DA8481AB210C4CDB00EB489F /* XDJDataEngine+urlControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "XDJDataEngine+urlControl.h"; sourceTree = "<group>"; };
+		DA8481AC210C4CDB00EB489F /* XDJDataEngine+urlControl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "XDJDataEngine+urlControl.m"; sourceTree = "<group>"; };
 		DAF9C00F20B575490014B3EB /* XDJDataEngine+engine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "XDJDataEngine+engine.h"; sourceTree = "<group>"; };
 		DAF9C01020B575490014B3EB /* XDJDataEngine+engine.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "XDJDataEngine+engine.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -242,6 +245,8 @@
 				DA7087F8207F4DAF00DE04A8 /* UBNetWorkingDefines.h */,
 				DA7087E3207F4D2B00DE04A8 /* XDJDataEngine.h */,
 				DA7087DA207F4D2B00DE04A8 /* XDJDataEngine.m */,
+				DA8481AB210C4CDB00EB489F /* XDJDataEngine+urlControl.h */,
+				DA8481AC210C4CDB00EB489F /* XDJDataEngine+urlControl.m */,
 				DA7087E4207F4D2B00DE04A8 /* XDJHttpClient.h */,
 				DA7087DB207F4D2B00DE04A8 /* XDJHttpClient.m */,
 				DA64A8EA20CFA728009A3D3B /* XDJDownloadPlugin.h */,
@@ -384,6 +389,7 @@
 				DA7087CF207F4D2300DE04A8 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				DA7087CE207F4D2300DE04A8 /* UIButton+AFNetworking.m in Sources */,
 				DA70878D207F4CFA00DE04A8 /* AppDelegate.m in Sources */,
+				DA8481AD210C4CDB00EB489F /* XDJDataEngine+urlControl.m in Sources */,
 				DA7087D1207F4D2300DE04A8 /* AFAutoPurgingImageCache.m in Sources */,
 				DA7087D2207F4D2300DE04A8 /* AFImageDownloader.m in Sources */,
 			);
