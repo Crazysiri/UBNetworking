@@ -26,20 +26,15 @@
 }
 
 
-- (void)setValuesForRequestSerializer:(id<XDJRequestCommonNeedsDelegate>)needs {
-    NSDictionary *headers = [needs headers];
-    for (NSString *key in headers.allKeys) {
-        [self.httpRequestSerializer setValue:headers[key] forHTTPHeaderField:key];
-    }
-    self.httpRequestSerializer.timeoutInterval = needs.timeout;
-}
-
-#pragma mark - life cycle
-
 #pragma mark - public methods
-- (NSMutableURLRequest *)requestWithDataModel:(XDJBaseRequestDataModel *)model {
-    [self setValuesForRequestSerializer:_needs];
-    NSMutableDictionary *commonParams = [NSMutableDictionary dictionaryWithDictionary:[_needs commonParameters]];
+- (NSMutableURLRequest *)requestWithDataModel:(XDJBaseRequestDataModel *)model commonHeaders:(NSDictionary *)commonHeaders commonParameters:(NSDictionary *)commonParameters timeout:(NSTimeInterval)timeout {
+    
+    for (NSString *key in commonHeaders.allKeys) {
+        [self.httpRequestSerializer setValue:commonHeaders[key] forHTTPHeaderField:key];
+    }
+    self.httpRequestSerializer.timeoutInterval = timeout;
+
+    NSMutableDictionary *commonParams = [NSMutableDictionary dictionaryWithDictionary:commonParameters];
     [commonParams addEntriesFromDictionary:model.parameters];
 
     NSString *urlString = model.url;
@@ -93,7 +88,6 @@
         return nil;
     }
     
-    request.timeoutInterval = _needs.timeout;
     return request;
 }
 

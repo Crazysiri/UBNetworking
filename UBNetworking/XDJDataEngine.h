@@ -14,13 +14,8 @@
 
 @property (readonly, nonatomic) NSURLResponse *response;
 
-//必须配置的方法！！！aClass 是 XDJBaseRequestDataModel 子类
-+ (void)initializeWithErrorHandlerClass:(Class)aClass commonNeeds:(id<XDJRequestCommonNeedsDelegate>)needs;
-
-/*拼url 用的 一般是 host = "http://url.com" other="/api.php"
- return @"http://url.com/api.php"
- */
-+ (NSString *)server:(NSString *)host other:(NSString *)other;
+//必须配置的方法！！！
++ (void)initializeWithDefaultNeeds:(id<XDJRequestCommonNeedsDelegate,XDJReponseCommonNeedsDelegate>)needs;
 
 /**
  *  取消self持有的hash的网络请求
@@ -33,6 +28,7 @@
 
 /// get/post的普通请求
 + (XDJDataEngine *)control:(NSObject *)control //control 释放时销毁当前请求
+                     needs:(id<XDJRequestCommonNeedsDelegate,XDJReponseCommonNeedsDelegate>)needs //use default needs if nil
                        url:(NSString *)url //请求的url
                      param:(NSDictionary *)parameters //参数
                requestType:(XDJRequestType)requestType //方式 get post
@@ -43,6 +39,7 @@
 
 /// 上传文件data的请求 requestType 默认为 XDJRequestTypePostUpload
 + (XDJDataEngine *)control:(NSObject *)control
+                     needs:(id<XDJRequestCommonNeedsDelegate,XDJReponseCommonNeedsDelegate>)needs //use default needs if nil
                        url:(NSString *)url
                      param:(NSDictionary *)parameters
                   fileData:(NSData *)fileData
@@ -56,6 +53,7 @@
 
 /// 上传图片data的请求，imageType = @"gif" 或者 @"jpg"
 + (XDJDataEngine *)control:(NSObject *)control
+                     needs:(id<XDJRequestCommonNeedsDelegate,XDJReponseCommonNeedsDelegate>)needs //use default needs if nil
                        url:(NSString *)url
                      param:(NSDictionary *)parameters
                  imageData:(NSData *)imageData

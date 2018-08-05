@@ -29,6 +29,7 @@ id <XDJDataEngineURLSetterGetter> __url_getter;
 
 /// get/post的普通请求
 + (XDJDataEngine *)url_control:(NSObject *)control //control 释放时销毁当前请求
+                         needs:(id<XDJRequestCommonNeedsDelegate,XDJReponseCommonNeedsDelegate>)needs //use default needs if nil
                    hostKey:(NSString *)hostKey
                        api:(NSString *)api
                      param:(NSDictionary *)parameters //参数
@@ -39,13 +40,14 @@ id <XDJDataEngineURLSetterGetter> __url_getter;
     
     NSString *url = [self urlForHostKey:hostKey api:api];
 
-    return [self control:control url:url param:parameters requestType:requestType beforeRequest:beforeRequest progressBlock:progressBlock complete:responseBlock];
+    return [self control:control needs:needs url:url param:parameters requestType:requestType beforeRequest:beforeRequest progressBlock:progressBlock complete:responseBlock];
     
 } //结果block
 
 
 /// 上传文件data的请求 requestType 默认为 XDJRequestTypePostUpload
 + (XDJDataEngine *)url_control:(NSObject *)control
+                         needs:(id<XDJRequestCommonNeedsDelegate,XDJReponseCommonNeedsDelegate>)needs //use default needs if nil
                    hostKey:(NSString *)hostKey
                        api:(NSString *)api
                      param:(NSDictionary *)parameters
@@ -58,12 +60,13 @@ id <XDJDataEngineURLSetterGetter> __url_getter;
                   complete:(XDJCompletionDataBlock)responseBlock {
     NSString *url = [self urlForHostKey:hostKey api:api];
 
-    return [self control:control url:url param:parameters fileData:fileData dataName:dataName fileName:fileName mimeType:mimeType beforeRequest:beforeRequest uploadProgressBlock:uploadProgressBlock complete:responseBlock];
+    return [self control:control needs:needs url:url param:parameters fileData:fileData dataName:dataName fileName:fileName mimeType:mimeType beforeRequest:beforeRequest uploadProgressBlock:uploadProgressBlock complete:responseBlock];
 }
 
 
 /// 上传图片data的请求，imageType = @"gif" 或者 @"jpg"
 + (XDJDataEngine *)url_control:(NSObject *)control
+                         needs:(id<XDJRequestCommonNeedsDelegate,XDJReponseCommonNeedsDelegate>)needs //use default needs if nil
                    hostKey:(NSString *)hostKey
                        api:(NSString *)api
                      param:(NSDictionary *)parameters
@@ -74,7 +77,7 @@ id <XDJDataEngineURLSetterGetter> __url_getter;
                   complete:(XDJCompletionDataBlock)responseBlock {
     NSString *url = [self urlForHostKey:hostKey api:api];
 
-    return [self control:control url:url param:parameters imageData:imageData imageType:imageType beforeRequest:beforeRequest uploadProgressBlock:uploadProgressBlock complete:responseBlock];
+    return [self control:control needs:needs url:url param:parameters imageData:imageData imageType:imageType beforeRequest:beforeRequest uploadProgressBlock:uploadProgressBlock complete:responseBlock];
 }
 
 

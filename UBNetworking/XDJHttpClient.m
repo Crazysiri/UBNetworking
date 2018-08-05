@@ -15,10 +15,13 @@
 
 
 @interface XDJHttpClient () {
-    Class _errorHandlerClass;
+    
 }
 //afnetworking
 @property (nonatomic, strong) AFURLSessionManager *sessionManager;
+
+@property (nonatomic, strong) AFURLSessionManager *dataSessionManager;
+
 //根据requestid 存放 task
 @property (nonatomic ,strong) NSMutableDictionary *dispatchTable;
 @property (nonatomic, strong) NSNumber *recodedRequestId;
@@ -45,14 +48,10 @@
 - (id)init {
     self = [super init];
     if (self) {
-        [self registerErrorHandlerClass:[XDJBaseNetErrorHandler class]];
     }
     return self;
 }
 
-- (void)registerErrorHandlerClass:(Class)aClass {
-    _errorHandlerClass = aClass;
-}
 
 
 /**
@@ -61,9 +60,19 @@
  *
  *  @return 网络请求task哈希值
  */
-- (NSNumber *)callRequestWithRequestModel:(XDJBaseRequestDataModel *)requestModel beforeResume:(void(^)(NSMutableURLRequest *request))block {
+- (NSNumber *)callRequestWithRequestModel:(XDJBaseRequestDataModel *)requestModel needs:(id<XDJRequestCommonNeedsDelegate,XDJReponseCommonNeedsDelegate>)needs beforeResume:(void(^)(NSMutableURLRequest *request))block {
+    
+    //设置 sessionManager
+    AFURLSessionManager *sessionManager = (!needs.serializerType || [needs.serializerType isEqualToString:@"json"]) ? self.sessionManager : self.dataSessionManager;
+    AFHTTPResponseSerializer *Serializer = sessionManager.responseSerializer;
+    NSMutableSet *set = [NSMutableSet set];
+    for (NSString *string in [needs contentTypes]) {
+        [set addObject:string];
+    }
+    Serializer.acceptableContentTypes = set;
+    
     XDJRequestGenerator *generator = [XDJRequestGenerator shared];
-    NSMutableURLRequest *request = [generator  requestWithDataModel:requestModel];
+    NSMutableURLRequest *request = [generator  requestWithDataModel:requestModel commonHeaders:needs.headers commonParameters:needs.commonParameters timeout:needs.timeout];
     
     if (block) {
         block(request);
@@ -76,7 +85,7 @@
         task = [self.downloadPlugin downloadTaskWithRequest:request requestModel:requestModel];
 
     } else {
-        task = [self taskWithRequest:request requestModel:requestModel];
+        task = [self taskWithRequest:request requestModel:requestModel handlerClass:needs.handlerClass manager:sessionManager];
     }
     [task resume];
 
@@ -86,29 +95,13 @@
 }
 
 //创建task
-- (NSURLSessionTask *)taskWithRequest:(NSMutableURLRequest *)request requestModel:(XDJBaseRequestDataModel *)requestModel {
-    
-    //设置 sessionManager
-    AFURLSessionManager *sessionManager = self.sessionManager;
-    AFJSONResponseSerializer *Serializer = sessionManager.responseSerializer;
-    NSMutableSet *set = [NSMutableSet set];
-    XDJRequestGenerator *generator = [XDJRequestGenerator shared];
-    id <XDJRequestCommonNeedsDelegate> needs = [generator needs];
-    for (NSString *string in [needs contentTypes]) {
-        [set addObject:string];
-    }
-    Serializer.acceptableContentTypes = set;
-    
+- (NSURLSessionTask *)taskWithRequest:(NSMutableURLRequest *)request requestModel:(XDJBaseRequestDataModel *)requestModel  handlerClass:(Class)handlerClass manager:(AFURLSessionManager *)manager {
+
     
     
     typeof(self) __weak weakSelf = self;
 
-    __weak typeof(_errorHandlerClass) weakClass = _errorHandlerClass;
-
-    __block NSURLSessionDataTask *task = [self.sessionManager dataTaskWithRequest:request uploadProgress:requestModel.uploadProgressBlock downloadProgress:nil completionHandler:^(NSURLResponse * _Nonnull response,id  _Nullable responseObject, NSError * _Nullable error) {
-        if (error || !responseObject || ([responseObject[@"code"] integerValue] != 200)) {
-            NSLog(@"请求：%@ object:%@ error:%@",requestModel.url,responseObject,error);
-        }
+    __block NSURLSessionDataTask *task = [manager dataTaskWithRequest:request uploadProgress:requestModel.uploadProgressBlock downloadProgress:nil completionHandler:^(NSURLResponse * _Nonnull response,id  _Nullable responseObject, NSError * _Nullable error) {
         
         if (error.code == -999 || task.state == NSURLSessionTaskStateCanceling) {
             // 如果这个operation 是被cancel的，那就不用处理回调了。
@@ -118,7 +111,7 @@
             
             //在这里做网络错误的解析，只是整理成error(包含重新发起请求，比如重新获取签名后再次请求),不做任何UI处理(包含reload，常规reload不在这里处理)，
             //解析完成后通过调用requestModel.responseBlock进行回调
-            [weakClass resultHandlerWithRequestDataModel:requestModel responseURL:response responseObject:responseObject error:error errorHandler:^(BOOL needCallback,NSError *newError) {
+            [handlerClass resultHandlerWithRequestDataModel:requestModel responseURL:response responseObject:responseObject error:error errorHandler:^(BOOL needCallback,NSError *newError) {
                 if (!needCallback) {
                     return;
                 }
@@ -177,6 +170,15 @@
     }
     return _sessionManager;
 }
+
+- (AFURLSessionManager *)dataSessionManager {
+    if (!_dataSessionManager) {
+        _dataSessionManager = [self getCommonSessionManager];
+        _dataSessionManager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    }
+    return _dataSessionManager;
+}
+
 - (NSMutableDictionary *)dispatchTable{
     if (_dispatchTable == nil) {
         _dispatchTable = [[NSMutableDictionary alloc] init];

@@ -20,17 +20,13 @@
 @end
 @implementation XDJDataEngine
 
-+ (NSString *)server:(NSString *)host other:(NSString *)other {
-    return [NSString stringWithFormat:@"%@%@",host,other];
-}
+static id <XDJRequestCommonNeedsDelegate,XDJReponseCommonNeedsDelegate> __request_default_needs = nil;
 
 #pragma mark - life cycle
 
-//必须配置的方法！！！aClass 是 XDJBaseRequestDataModel 子类
-+ (void)initializeWithErrorHandlerClass:(Class)aClass commonNeeds:(id<XDJRequestCommonNeedsDelegate>)needs {
-        [[XDJHttpClient sharedInstance] registerErrorHandlerClass:aClass];
-        [[XDJRequestGenerator shared] setNeeds:needs];
-
+//必须配置的方法！！！
++ (void)initializeWithDefaultNeeds:(id<XDJRequestCommonNeedsDelegate,XDJReponseCommonNeedsDelegate>)needs {
+    __request_default_needs = needs;
 }
 
 - (void)dealloc{
@@ -46,6 +42,7 @@
 
 /// get/post
 + (XDJDataEngine *)control:(NSObject *)control
+                     needs:(id<XDJRequestCommonNeedsDelegate,XDJReponseCommonNeedsDelegate>)needs //use default needs if nil
                        url:(NSString *)url
                      param:(NSDictionary *)parameters
                requestType:(XDJRequestType)requestType
@@ -65,12 +62,13 @@
         }
         [weakControl.networkingAutoCancelRequests removeEngineWithRequestID:engine.requestID];
     }];
-    [engine callRequestWithRequestModel:dataModel control:control beforeRequestBlock:beforeRequest];
+    [engine callRequestWithRequestModel:dataModel control:control needs:needs beforeRequestBlock:beforeRequest];
     return engine;
 }
 
 
 + (XDJDataEngine *)control:(NSObject *)control
+                     needs:(id<XDJRequestCommonNeedsDelegate,XDJReponseCommonNeedsDelegate>)needs //use default needs if nil
                        url:(NSString *)url
                      param:(NSDictionary *)parameters
                   fileData:(NSData *)fileData
@@ -93,12 +91,13 @@
         }
         [weakControl.networkingAutoCancelRequests removeEngineWithRequestID:engine.requestID];
     }];
-    [engine callRequestWithRequestModel:dataModel control:control beforeRequestBlock:beforeRequest];
+    [engine callRequestWithRequestModel:dataModel control:control needs:needs beforeRequestBlock:beforeRequest];
     return engine;
 }
 
 
 + (XDJDataEngine *)control:(NSObject *)control
+                     needs:(id<XDJRequestCommonNeedsDelegate,XDJReponseCommonNeedsDelegate>)needs //use default needs if nil
                        url:(NSString *)url
                      param:(NSDictionary *)parameters
                  imageData:(NSData *)imageData
@@ -106,7 +105,7 @@
              beforeRequest:(void(^)(NSMutableURLRequest *request))beforeRequest
        uploadProgressBlock:(XDJProgressBlock)uploadProgressBlock
                   complete:(XDJCompletionDataBlock)responseBlock {
-    return [self control:control url:url param:parameters fileData:imageData dataName:@"image" fileName:@"image" mimeType:[NSString stringWithFormat:@"image/%@", imageType] beforeRequest:beforeRequest uploadProgressBlock:uploadProgressBlock complete:responseBlock];
+    return [self control:control needs:needs url:url param:parameters fileData:imageData dataName:@"image" fileName:@"image" mimeType:[NSString stringWithFormat:@"image/%@", imageType] beforeRequest:beforeRequest uploadProgressBlock:uploadProgressBlock complete:responseBlock];
 }
 
 /// downloadget的请求
@@ -132,14 +131,17 @@
         [weakControl.networkingAutoCancelRequests removeEngineWithRequestID:engine.requestID];
 
     }];
-    [engine callRequestWithRequestModel:dataModel control:control beforeRequestBlock:beforeRequest];
+    [engine callRequestWithRequestModel:dataModel control:control needs:nil   beforeRequestBlock:beforeRequest];
     return engine;
 } //结果block
 #pragma mark - event response
 #pragma mark - private methods
 
-- (void)callRequestWithRequestModel:(XDJBaseRequestDataModel *)dataModel control:(NSObject *)control beforeRequestBlock:(void(^)(NSMutableURLRequest *request))beforeRequestBlock {
-    self.requestID = [[XDJHttpClient sharedInstance] callRequestWithRequestModel:dataModel beforeResume:beforeRequestBlock];
+- (void)callRequestWithRequestModel:(XDJBaseRequestDataModel *)dataModel control:(NSObject *)control needs:(id<XDJRequestCommonNeedsDelegate,XDJReponseCommonNeedsDelegate>)needs  beforeRequestBlock:(void(^)(NSMutableURLRequest *request))beforeRequestBlock {
+    if (!needs) {
+        needs = __request_default_needs;
+    }
+    self.requestID = [[XDJHttpClient sharedInstance] callRequestWithRequestModel:dataModel needs:needs?needs:__request_default_needs beforeResume:beforeRequestBlock];
     [control.networkingAutoCancelRequests setEngine:self requestID:self.requestID];
 }
 #pragma mark - getters and setters

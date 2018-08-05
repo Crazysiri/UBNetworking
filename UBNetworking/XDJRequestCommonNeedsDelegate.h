@@ -11,11 +11,9 @@
 
 
 @protocol XDJRequestCommonNeedsDelegate <NSObject>
+
 //每次请求 公共带的headers 比如版本，设备类型，网络类型等等
 - (NSDictionary *)headers;
-
-//content types
-- (NSArray *)contentTypes;
 
 //公共的超时 时间
 - (NSTimeInterval)timeout;
@@ -27,3 +25,23 @@
 @end
 
 #endif /* XDJRequestCommonNeedsDelegate_h */
+
+
+#ifndef XDJResponseCommonNeedsDelegate_h
+#define XDJResponseCommonNeedsDelegate_h
+
+
+@protocol XDJReponseCommonNeedsDelegate <NSObject>
+
+
+@property (nonatomic,strong) Class handlerClass; //XDJBaseNetErrorHandler by default
+
+
+- (NSString *)serializerType; //xml or json
+
+//content types
+- (NSArray *)contentTypes;
+
+@end
+
+#endif /* XDJResponseCommonNeedsDelegate_h */

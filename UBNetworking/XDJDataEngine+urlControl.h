@@ -34,47 +34,50 @@
 
 /// get/post的普通请求
 + (XDJDataEngine *)url_control:(NSObject *)control //control 释放时销毁当前请求
-                   hostKey:(NSString *)hostKey
-                       api:(NSString *)api
-                     param:(NSDictionary *)parameters //参数
-               requestType:(XDJRequestType)requestType //方式 get post
-             beforeRequest:(void(^)(NSMutableURLRequest *request))beforeRequest
-             progressBlock:(XDJProgressBlock)progressBlock //进度progress
-                  complete:(XDJCompletionDataBlock)responseBlock; //结果block
+                         needs:(id<XDJRequestCommonNeedsDelegate,XDJReponseCommonNeedsDelegate>)needs //use default needs if nil
+                       hostKey:(NSString *)hostKey
+                           api:(NSString *)api
+                         param:(NSDictionary *)parameters //参数
+                   requestType:(XDJRequestType)requestType //方式 get post
+                 beforeRequest:(void(^)(NSMutableURLRequest *request))beforeRequest
+                 progressBlock:(XDJProgressBlock)progressBlock //进度progress
+                      complete:(XDJCompletionDataBlock)responseBlock; //结果block
 
 
 /// 上传文件data的请求 requestType 默认为 XDJRequestTypePostUpload
 + (XDJDataEngine *)url_control:(NSObject *)control
-                   hostKey:(NSString *)hostKey
-                       api:(NSString *)api
-                     param:(NSDictionary *)parameters
-                  fileData:(NSData *)fileData
-                  dataName:(NSString *)dataName
-                  fileName:(NSString *)fileName
-                  mimeType:(NSString *)mimeType
-             beforeRequest:(void(^)(NSMutableURLRequest *request))beforeRequest
-       uploadProgressBlock:(XDJProgressBlock)uploadProgressBlock
-                  complete:(XDJCompletionDataBlock)responseBlock;
+                         needs:(id<XDJRequestCommonNeedsDelegate,XDJReponseCommonNeedsDelegate>)needs //use default needs if nil
+                       hostKey:(NSString *)hostKey
+                           api:(NSString *)api
+                         param:(NSDictionary *)parameters
+                      fileData:(NSData *)fileData
+                      dataName:(NSString *)dataName
+                      fileName:(NSString *)fileName
+                      mimeType:(NSString *)mimeType
+                 beforeRequest:(void(^)(NSMutableURLRequest *request))beforeRequest
+           uploadProgressBlock:(XDJProgressBlock)uploadProgressBlock
+                      complete:(XDJCompletionDataBlock)responseBlock;
 
 
 /// 上传图片data的请求，imageType = @"gif" 或者 @"jpg"
 + (XDJDataEngine *)url_control:(NSObject *)control
-                   hostKey:(NSString *)hostKey
-                       api:(NSString *)api
-                     param:(NSDictionary *)parameters
-                 imageData:(NSData *)imageData
-                 imageType:(NSString *)imageType // @"gif" // @"jpg"
-             beforeRequest:(void(^)(NSMutableURLRequest *request))beforeRequest
-       uploadProgressBlock:(XDJProgressBlock)uploadProgressBlock
-                  complete:(XDJCompletionDataBlock)responseBlock;
+                         needs:(id<XDJRequestCommonNeedsDelegate,XDJReponseCommonNeedsDelegate>)needs //use default needs if nil
+                       hostKey:(NSString *)hostKey
+                           api:(NSString *)api
+                         param:(NSDictionary *)parameters
+                     imageData:(NSData *)imageData
+                     imageType:(NSString *)imageType // @"gif" // @"jpg"
+                 beforeRequest:(void(^)(NSMutableURLRequest *request))beforeRequest
+           uploadProgressBlock:(XDJProgressBlock)uploadProgressBlock
+                      complete:(XDJCompletionDataBlock)responseBlock;
 
 
 /// downloadget的请求
 + (XDJDataEngine *)url_control:(NSObject *)control //control 释放时销毁当前请求
-                   hostKey:(NSString *)hostKey
-                       api:(NSArray *)api
-                     param:(NSDictionary *)parameters //参数
-             beforeRequest:(void(^)(NSMutableURLRequest *request))beforeRequest
-          downloadProgress:(XDJDownloadProgressBlock)downloadProgressBlock //进度progress
-                  complete:(XDJDownloadCompletionBlock)responseBlock;
+                       hostKey:(NSString *)hostKey
+                           api:(NSArray *)api
+                         param:(NSDictionary *)parameters //参数
+                 beforeRequest:(void(^)(NSMutableURLRequest *request))beforeRequest
+              downloadProgress:(XDJDownloadProgressBlock)downloadProgressBlock //进度progress
+                      complete:(XDJDownloadCompletionBlock)responseBlock;
 @end

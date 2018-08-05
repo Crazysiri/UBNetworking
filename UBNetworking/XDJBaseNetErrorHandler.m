@@ -10,6 +10,8 @@
 
 @implementation XDJBaseNetErrorHandler
 + (void)resultHandlerWithRequestDataModel:(XDJBaseRequestDataModel *)requestDataModel responseURL:(NSURLResponse *)responseURL responseObject:(id)responseObject error:(NSError *)error errorHandler:(void(^)(BOOL needCallback, NSError *newError))errorHandler {
-
+    if (errorHandler) {
+        errorHandler(YES,error);
+    }
 }
 @end

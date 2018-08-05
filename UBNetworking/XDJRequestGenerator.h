@@ -11,8 +11,8 @@
 
 @class XDJBaseRequestDataModel;
 @interface XDJRequestGenerator : NSObject
-@property (strong, nonatomic) id<XDJRequestCommonNeedsDelegate> needs;
 + (id)shared;
 
-- (NSMutableURLRequest *)requestWithDataModel:(XDJBaseRequestDataModel *)model;
+- (NSMutableURLRequest *)requestWithDataModel:(XDJBaseRequestDataModel *)model commonHeaders:(NSDictionary *)commonHeaders commonParameters:(NSDictionary *)commonParameters timeout:(NSTimeInterval)timeout;
+
 @end

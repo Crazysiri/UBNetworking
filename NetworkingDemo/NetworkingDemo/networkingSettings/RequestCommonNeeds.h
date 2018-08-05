@@ -9,6 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "XDJRequestCommonNeedsDelegate.h"
 
-@interface RequestCommonNeeds : NSObject <XDJRequestCommonNeedsDelegate>
+@interface RequestCommonNeeds : NSObject <XDJRequestCommonNeedsDelegate,XDJReponseCommonNeedsDelegate>
 @end
 
