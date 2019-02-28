@@ -12,6 +12,9 @@
 
 @protocol XDJRequestCommonNeedsDelegate <NSObject>
 
+//传参数给代理，因为代理有可能也需要处理参数
+- (void)setParameters:(NSDictionary *)parameters;
+
 //每次请求 公共带的headers 比如版本，设备类型，网络类型等等
 - (NSDictionary *)headers;
 

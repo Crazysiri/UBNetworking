@@ -85,13 +85,14 @@ id <XDJDataEngineURLSetterGetter> __url_getter;
 + (XDJDataEngine *)url_control:(NSObject *)control //control 释放时销毁当前请求
                    hostKey:(NSString *)hostKey
                        api:(NSString *)api
+              downloadPath:(NSString *)downloadPath
                      param:(NSDictionary *)parameters //参数
              beforeRequest:(void(^)(NSMutableURLRequest *request))beforeRequest
           downloadProgress:(XDJDownloadProgressBlock)downloadProgressBlock //进度progress
                   complete:(XDJDownloadCompletionBlock)responseBlock {
     NSString *url = [self urlForHostKey:hostKey api:api];
 
-    return [self control:control url:url param:parameters beforeRequest:beforeRequest downloadProgress:downloadProgressBlock complete:responseBlock];
+    return [self control:control url:url downloadPath:downloadPath param:parameters beforeRequest:beforeRequest downloadProgress:downloadProgressBlock complete:responseBlock];
 }
 
 @end

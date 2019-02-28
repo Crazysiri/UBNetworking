@@ -72,6 +72,10 @@
     Serializer.acceptableContentTypes = set;
     
     XDJRequestGenerator *generator = [XDJRequestGenerator shared];
+    
+    //提前设置请求的参数，代理好处理
+    [needs setParameters:requestModel.parameters];
+    
     NSMutableURLRequest *request = [generator  requestWithDataModel:requestModel commonHeaders:needs.headers commonParameters:needs.commonParameters timeout:needs.timeout];
     
     if (block) {
@@ -83,12 +87,12 @@
             self.downloadPlugin = [[XDJDownloadPlugin alloc]init];
         }
         task = [self.downloadPlugin downloadTaskWithRequest:request requestModel:requestModel];
-
+        
     } else {
         task = [self taskWithRequest:request requestModel:requestModel handlerClass:needs.handlerClass manager:sessionManager];
     }
     [task resume];
-
+    
     NSNumber *requestID = [NSNumber numberWithUnsignedInteger:task.hash];
     [self.dispatchTable setObject:task forKey:requestID];
     return requestID;
@@ -96,11 +100,11 @@
 
 //创建task
 - (NSURLSessionTask *)taskWithRequest:(NSMutableURLRequest *)request requestModel:(XDJBaseRequestDataModel *)requestModel  handlerClass:(Class)handlerClass manager:(AFURLSessionManager *)manager {
-
+    
     
     
     typeof(self) __weak weakSelf = self;
-
+    
     __block NSURLSessionDataTask *task = [manager dataTaskWithRequest:request uploadProgress:requestModel.uploadProgressBlock downloadProgress:nil completionHandler:^(NSURLResponse * _Nonnull response,id  _Nullable responseObject, NSError * _Nullable error) {
         
         if (error.code == -999 || task.state == NSURLSessionTaskStateCanceling) {

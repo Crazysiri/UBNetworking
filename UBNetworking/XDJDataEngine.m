@@ -111,6 +111,7 @@ static id <XDJRequestCommonNeedsDelegate,XDJReponseCommonNeedsDelegate> __reques
 /// downloadget的请求
 + (XDJDataEngine *)control:(NSObject *)control //control 释放时销毁当前请求
                        url:(NSString *)url //请求的url
+              downloadPath:(NSString *)downloadPath
                      param:(NSDictionary *)parameters //参数
              beforeRequest:(void(^)(NSMutableURLRequest *request))beforeRequest
           downloadProgress:(XDJDownloadProgressBlock)downloadProgressBlock //进度progress
@@ -131,6 +132,9 @@ static id <XDJRequestCommonNeedsDelegate,XDJReponseCommonNeedsDelegate> __reques
         [weakControl.networkingAutoCancelRequests removeEngineWithRequestID:engine.requestID];
 
     }];
+       if (!downloadPath) {
+           dataModel.downloadPath = downloadPath;
+       }
     [engine callRequestWithRequestModel:dataModel control:control needs:nil   beforeRequestBlock:beforeRequest];
     return engine;
 } //结果block

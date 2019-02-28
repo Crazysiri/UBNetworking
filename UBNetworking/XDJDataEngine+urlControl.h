@@ -76,6 +76,7 @@
 + (XDJDataEngine *)url_control:(NSObject *)control //control 释放时销毁当前请求
                        hostKey:(NSString *)hostKey
                            api:(NSArray *)api
+                  downloadPath:(NSString *)downloadPath //下载目录，如果传 nil 有默认目录
                          param:(NSDictionary *)parameters //参数
                  beforeRequest:(void(^)(NSMutableURLRequest *request))beforeRequest
               downloadProgress:(XDJDownloadProgressBlock)downloadProgressBlock //进度progress

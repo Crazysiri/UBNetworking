@@ -30,7 +30,7 @@
     
 
     
-    [XDJDataEngine control:nil url:@"https://storage.googleapis.com/golang/go1.8.1.linux-amd64.tar.gz" param:nil beforeRequest:nil downloadProgress:^(NSInteger currentFileLength, NSInteger totalFileLenght) {
+    [XDJDataEngine control:nil url:@"https://storage.googleapis.com/golang/go1.8.1.linux-amd64.tar.gz" downloadPath:nil param:nil beforeRequest:nil downloadProgress:^(NSInteger currentFileLength, NSInteger totalFileLenght) {
         NSLog(@"%f",(float)currentFileLength / totalFileLenght);
     } complete:^(NSString *path, NSURLResponse *response, NSError *error) {
         
