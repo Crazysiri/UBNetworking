@@ -6,6 +6,6 @@
 //  Copyright © 2017年 Skates.live. All rights reserved.
 //
 
-#import "XDJBaseNetErrorHandler.h"
-@interface NetErrorHandler : XDJBaseNetErrorHandler
+#import "UBNetworkingResultHandler.h"
+@interface NetErrorHandler : NSObject <UBNetworkingResultHandler>
 @end

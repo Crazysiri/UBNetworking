@@ -19,7 +19,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-    [XDJDataEngine initializeWithDefaultNeeds:[RequestCommonNeeds new]];
+//    [XDJDataEngine initializeWithDefaultNeeds:[RequestCommonNeeds new]];
     // Override point for customization after application launch.
     
     //control 参数的意思，如果object释放，那么立即结束请求（当然此处只是例子，AppDelegate不会释放，一般设置成viewController）
@@ -29,12 +29,12 @@
 //    }];
     
 
-    
-    [XDJDataEngine control:nil url:@"https://storage.googleapis.com/golang/go1.8.1.linux-amd64.tar.gz" downloadPath:nil param:nil beforeRequest:nil downloadProgress:^(NSInteger currentFileLength, NSInteger totalFileLenght) {
-        NSLog(@"%f",(float)currentFileLength / totalFileLenght);
-    } complete:^(NSString *path, NSURLResponse *response, NSError *error) {
-        
-    }];
+//
+//    [XDJDataEngine control:nil url:@"https://storage.googleapis.com/golang/go1.8.1.linux-amd64.tar.gz" downloadPath:nil param:nil beforeRequest:nil downloadProgress:^(NSInteger currentFileLength, NSInteger totalFileLenght) {
+//        NSLog(@"%f",(float)currentFileLength / totalFileLenght);
+//    } complete:^(NSString *path, NSURLResponse *response, NSError *error) {
+//
+//    }];
     
     return YES;
 }

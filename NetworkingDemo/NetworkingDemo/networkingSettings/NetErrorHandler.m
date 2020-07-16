@@ -8,16 +8,16 @@
 
 #import "NetErrorHandler.h"
 #import "RequestCommonNeeds.h"
-#import "XDJBaseRequestDataModel.h"
+#import "UBNetworkingTask.h"
 #import "RequestDefines.h"
 @implementation NetErrorHandler
-+ (void)resultHandlerWithRequestDataModel:(XDJBaseRequestDataModel *)requestDataModel responseURL:(NSURLResponse *)responseURL responseObject:(id)responseObject error:(NSError *)error errorHandler:(void(^)(BOOL needCallback, NSError *newError))errorHandler {
-    if (error) {
-        if (errorHandler) {
-            errorHandler(YES,error);
-        }
-        
-    } else {
+
++ (id)handleModel:(id)responseData {
+    return nil;
+}
+
++ (void)resultHandlerWithRequestDataModel:(UBNetworkingTask *)model response:(NSURLResponse *)response responseObject:(id)responseObject errorHandler:(void (^)(BOOL, NSError *))errorHandler {
+
         NSInteger errorCode = HttpCodeSuccess;
         NSString *message = @"网络连接发生错误";
         if (![responseObject isKindOfClass:[NSDictionary class]]) {
@@ -37,8 +37,10 @@
             if (!responseObject) {
                 responseObject = @{};
             }
+            NSError *error;
+            
             //统一生成新的error
-            error = [[NSError alloc] initWithDomain:NSCocoaErrorDomain code:errorCode userInfo:@{NSLocalizedDescriptionKey:message,@"data":responseObject,@"URL":responseURL.URL.absoluteString}];
+            error = [[NSError alloc] initWithDomain:NSCocoaErrorDomain code:errorCode userInfo:@{NSLocalizedDescriptionKey:message,@"data":responseObject,@"URL":response.URL.absoluteString}];
             
             if (errorCode == HttpCodeLoginDated) {
                 errorHandler(NO,error);
@@ -53,7 +55,6 @@
                 errorHandler(YES,nil);
             }
         }
-    }
 }
 
 @end

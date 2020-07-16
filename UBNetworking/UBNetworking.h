@@ -1,18 +1,21 @@
 //
 //  UBNetworking.h
-//  NetworkingDemo
+//  LenzNetworking
 //
-//  Created by James on 2018/4/12.
-//  Copyright © 2018年 James. All rights reserved.
+//  Created by Zero on 2020/7/16.
+//  Copyright © 2020 Zero. All rights reserved.
 //
 
 #ifndef UBNetworking_h
 #define UBNetworking_h
 
-#import "XDJDataEngine+urlControl.h" //封装了 URL的一些用法
-#import "XDJDataEngine.h"
-#import "XDJBaseNetErrorHandler.h"
-#import "XDJRequestCommonNeedsDelegate.h"
-#import "UBNetWorkingDefines.h"
+#import "UBNetworkingManager.h"
+#import "UBNetworkingTask.h"
+
+#import "UBNetworkingAutoCancel.h"
+
+#import "UBHttpNeeds.h"
+#import "UBNetworkingResultHandler.h"
+
 
 #endif /* UBNetworking_h */

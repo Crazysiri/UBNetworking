@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "XDJRequestCommonNeedsDelegate.h"
+#import "UBHttpNeeds.h"
 
-@interface RequestCommonNeeds : NSObject <XDJRequestCommonNeedsDelegate,XDJReponseCommonNeedsDelegate>
+@interface RequestCommonNeeds : NSObject <UBHttpNeeds>
 @end
 
