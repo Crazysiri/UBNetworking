@@ -176,7 +176,7 @@ static id<UBHttpNeeds> __lenz_http_needs;
             break;
     }
     
-    if (!requestSerializer || [requestSerializer isKindOfClass:class]) {
+    if (!requestSerializer || ![requestSerializer isKindOfClass:class]) {
         requestSerializer = [class serializer];
         manager.requestSerializer = requestSerializer;
     }
@@ -198,7 +198,7 @@ static id<UBHttpNeeds> __lenz_http_needs;
             break;
     }
     
-    if (!response || [response isKindOfClass:class]) {
+    if (!response || ![response isKindOfClass:class]) {
         response = [class serializer];
         manager.responseSerializer = response;
     }
