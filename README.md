@@ -1,5 +1,5 @@
 # UBNetworking
-封装了 网络请求 af3.0
+封装了 网络请求 af4.x
 
 1.header seach path 添加 "${PODS_ROOT}/UBNetworking/UBNetworking"
 
