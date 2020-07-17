@@ -137,9 +137,11 @@ static id<UBHttpNeeds> __lenz_http_needs;
  *  取消网络请求
  */
 - (void)cancelByID:(NSNumber *)tid {
-    NSURLSessionDataTask *task = [self.tasks objectForKey:tid];
-    [task cancel];
-    [self.tasks removeObjectForKey:tid];
+    if (tid) {
+        NSURLSessionDataTask *task = [self.tasks objectForKey:tid];
+        [task cancel];
+        [self.tasks removeObjectForKey:tid];
+    }
 }
 
 - (void)cancelByIDs:(NSArray<NSNumber *> *)tids {
@@ -148,7 +150,9 @@ static id<UBHttpNeeds> __lenz_http_needs;
         NSURLSessionDataTask *task = [weakSelf.tasks objectForKey:obj];
         [task cancel];
     }];
-    [self.tasks removeObjectsForKeys:tids];
+    if (tids) {
+        [self.tasks removeObjectsForKeys:tids];
+    }
 }
 
 
@@ -212,6 +216,13 @@ static id<UBHttpNeeds> __lenz_http_needs;
         _manager = [self.class manager];
     }
     return _manager;
+}
+
+- (NSMutableDictionary *)tasks {
+    if (!_tasks) {
+        _tasks = [NSMutableDictionary dictionary];
+    }
+    return _tasks;
 }
 
 + (AFHTTPSessionManager *)manager {
