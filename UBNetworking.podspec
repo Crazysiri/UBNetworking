@@ -16,8 +16,8 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "UBNetworking"
-  s.version      = "1.3.3"
-  s.summary      = "封装了 网络请求 af3.0"
+  s.version      = "2.0"
+  s.summary      = "封装了 网络请求 af4.x"
 
   # This description is used to generate tags and improve search results.
   #   * Think: What does it do? Why did you write it? What is the focus?
